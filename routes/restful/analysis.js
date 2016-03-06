@@ -4,24 +4,40 @@ let isPc = function(u){
 	return !u.match(/AppleWebKit.*Mobile.*/) && !u.match(/AppleWebKit/);
 }
 module.exports = function(router){
-	let cache = {};
+	let cache = {
+		analysis: {}
+	};
+	function isExpire(){
+		for(var i in cache.analysis){
+			if( !cache.analysis[i].expire ){
+				delete cache.analysis[i];
+			} else if( cache.analysis[i].expire < moment().format('X') ) {
+				delete cache.analysis[i];
+			}
+		}
+	}
 	router.get('/api/analysis', function *(next){
-		if( !!cache.analysis && cache.analysis.expire > moment().format('X') && this.query.debug !== 'true' ){
+		let start   = this.query.start;
+		let end     = this.query.end;
+		let url     = this.query.url;
+		let atype = url || 'all';
+		isExpire();
+		if( !!cache.analysis[atype] && cache.analysis[atype].expire > moment().format('X') && this.query.debug !== 'true' ){
 			this.body = {
 				error_code: 0,
-				data: cache.analysis.content
+				data: cache.analysis[atype].content
 			};
 		} else {
-			let start   = this.query.start;
-			let end     = this.query.end;
-			let result  = yield this.model.clog.find({
-				createtime: {
-					$gte: new Date(start*1000),
-					$lte: new Date(end*1000)
-				},
+			
+			let find = {
 				type:     0,
 				del_flag: 0
-			}).exec();
+			}
+			if( !!url && !!url.match(/http[s]?:\/\/[^\/:]+/gi) ){
+				url = url.match(/http[s]?:\/\/[^\/:]+/gi);
+				find.query = new RegExp('u=' + encodeURIComponent(url[0]), 'gi');
+			}
+			let result  = yield this.model.clog.find(find).exec();
 			// this.pg.db.client.query_(`SELECT * FROM analysis WHERE (date BETWEEN ${this.query.start} AND ${this.query.end}) AND type = 0 AND del_flag = '0'`);
 			let dataObj = {
 				pv: {},
@@ -111,7 +127,7 @@ module.exports = function(router){
 			
 
 			// 缓存数据，数据库连接慢（暂定一个小时）
-			cache.analysis = {
+			cache.analysis[atype] = {
 				expire: parseInt(moment().format('X'), 10) + 60*60,
 				content: body
 			}
