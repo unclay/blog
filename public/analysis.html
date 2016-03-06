@@ -16,8 +16,8 @@
 	    	type: 'get',
 	    	url: '/api/analysis',
 	    	data: {
-	    		start: 1454000000, //1455358655
-	    		end:   1456761600
+	    		start: parseInt(new Date().getTime()/1000, 10) - 10 * 24 * 3600,
+	    		end:   parseInt(new Date().getTime()/1000, 10) + 10 * 24 * 3600
 	    	},
 	    	success: function(data){
 	    		drawPv(data.data.pv);

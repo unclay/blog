@@ -15,14 +15,13 @@ module.exports = function(router){
 			let start   = this.query.start;
 			let end     = this.query.end;
 			let result  = yield this.model.clog.find({
-				date: {
-					$gte: start,
-					$lte: end
+				createtime: {
+					$gte: new Date(start*1000),
+					$lte: new Date(end*1000)
 				},
 				type:     0,
 				del_flag: 0
 			}).exec();
-			console.log( result );
 			// this.pg.db.client.query_(`SELECT * FROM analysis WHERE (date BETWEEN ${this.query.start} AND ${this.query.end}) AND type = 0 AND del_flag = '0'`);
 			let dataObj = {
 				pv: {},
@@ -104,7 +103,7 @@ module.exports = function(router){
 					});
 				}
 			}
-			if( body.pv.length >= 2 ){
+			if( !!body.pv && body.pv.length >= 2 ){
 				body.pv = body.pv.sort(function(a, b){
 					return new Date(a.name) - new Date(b.name);
 				});
