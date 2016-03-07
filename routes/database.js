@@ -1,6 +1,6 @@
 'use strict';
-let koamongo = require('koa-mongoose-short');
-let Schema   = koamongo.mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema   = mongoose.Schema;
 
 /*
  * @attr {Number} type 0:pv 1:err
@@ -8,6 +8,8 @@ let Schema   = koamongo.mongoose.Schema;
 let ClogSchema = new Schema({
 	ip:         { type: String, index: true },
 	type:       { type: Number, index: true },
+    url:        { type: String, index: true },
+    ref:        { type: String, index: true },
 	ua:                 String,
 	query:              String,
 	createtime:         Date,
@@ -67,19 +69,27 @@ let TotalSchema = new Schema({
     }]
 });
 
-let db = {
-	clog:  koamongo.db.model('Clog',  ClogSchema),
-	user:  koamongo.db.model('User',  UserSchema),
-	note:  koamongo.db.model('Note',  NoteSchema),
-	dict:  koamongo.db.model('Dict',  DictSchema),
-	total: koamongo.db.model('Total', TotalSchema),
-}
-module.exports = function(){
-	return function *(next){
-		this.model = this.model || {};
-		for(let i in db){
-			if( !this.model[i] ) this.model[i] = db[i];
-		}
-		yield next;
-	}
+// let db = {
+// 	clog:  mongoose.model('Clog',  ClogSchema),
+// 	user:  mongoose.model('User',  UserSchema),
+// 	note:  mongoose.model('Note',  NoteSchema),
+// 	dict:  mongoose.model('Dict',  DictSchema),
+// 	total: mongoose.model('Total', TotalSchema),
+// }
+module.exports = function(options){
+    options = options || {};
+    mongoose.connect(options.url);
+    mongoose.model('Clog',  ClogSchema);
+    mongoose.model('User',  UserSchema);
+    mongoose.model('Note',  NoteSchema);
+    mongoose.model('Dict',  DictSchema);
+    mongoose.model('Total', TotalSchema);
+
+	// return function *(next){
+	// 	this.model = this.model || {};
+	// 	for(let i in db){
+	// 		if( !this.model[i] ) this.model[i] = db[i];
+	// 	}
+	// 	yield next;
+	// }
 }

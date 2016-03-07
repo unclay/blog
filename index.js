@@ -2,7 +2,7 @@
 const koa         = require('koa');
 const router      = require('koa-router')();
 const os          = require('os');
-const koamongo    = require('koa-mongoose-short');
+// const koamongo    = require('koa-mongoose-short');
 const ejs         = require('koa-ejs');
 const path        = require('path');
 const staticCache = require('koa-static-cache');
@@ -30,11 +30,13 @@ ejs(app, {
 // app.use(require('./libs/koa-mongoose')());
 
 // app.use(require('./libs/db')());
-app.use(koamongo.connect({
-	url: G_dburl
-}));
+// app.use(koamongo.connect({
+// 	url: G_dburl
+// }));
 
-app.use(require('./routes/database')());
+require('./routes/database')({
+	url: G_dburl
+});
 
 app.use(router.routes());
 

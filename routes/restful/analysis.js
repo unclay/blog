@@ -1,5 +1,6 @@
 'use strict';
 let moment = require('moment');
+let mongo = require('mongoose');
 let isPc = function(u){
 	return !u.match(/AppleWebKit.*Mobile.*/) && !u.match(/AppleWebKit/);
 }
@@ -33,11 +34,10 @@ module.exports = function(router){
 				type:     0,
 				del_flag: 0
 			}
-			if( !!url && !!url.match(/http[s]?:\/\/[^\/:]+/gi) ){
-				url = url.match(/http[s]?:\/\/[^\/:]+/gi);
-				find.query = new RegExp('u=' + encodeURIComponent(url[0]), 'gi');
+			if( !!url ){
+				find.url = url;
 			}
-			let result  = yield this.model.clog.find(find).exec();
+			let result  = yield mongo.model('Clog').find(find).exec();
 			// this.pg.db.client.query_(`SELECT * FROM analysis WHERE (date BETWEEN ${this.query.start} AND ${this.query.end}) AND type = 0 AND del_flag = '0'`);
 			let dataObj = {
 				pv: {},
@@ -68,7 +68,7 @@ module.exports = function(router){
 				lenovo:  /lenovo/ig,
 				meitu:   /meitu/ig, // 美图
 				zte:     /zte/ig,   // 中兴
-				//other:   /.*/ig
+				other:   /.*/ig
 			}
 			for(let item of result){
 				// pv
