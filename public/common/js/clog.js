@@ -27,7 +27,7 @@
 		this.query.err    = {};
 	}
 	clog.prototype.pv = function() {
-		this.query.common.t = 0;
+		this.query.common.t = 1;
 		this.query.pv.ds    = window.screen.width + 'x' + window.screen.height; // 分辨率
 		if( !!doc.referrer ) this.query.pv.ref   = encodeURIComponent(doc.referrer); // 来源
 		this.send(this.query.pv);
@@ -48,7 +48,7 @@
 	window.onerror = function(message, uri, lineNumber, colNumber, errObj){
 		// 非同源问题不收集
 		if( !message.match(/Script error/gi) ){
-			win[name].query.common.t  = 1;
+			win[name].query.common.t  = 2;
 			win[name].query.err.emsg  = message;
 			win[name].query.err.euri  = uri;
 			win[name].query.err.eline = lineNumber;

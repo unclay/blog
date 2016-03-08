@@ -33,7 +33,7 @@ ejs(app, {
 // app.use(koamongo.connect({
 // 	url: G_dburl
 // }));
-
+console.log( G_dburl );
 require('./routes/database')({
 	url: G_dburl
 });
