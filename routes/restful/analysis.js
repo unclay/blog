@@ -21,6 +21,7 @@ module.exports = function(router){
 		let start   = this.query.start;
 		let end     = this.query.end;
 		let url     = this.query.url;
+		let type    = parseInt(this.query.type || 1, 10);
 		let atype = url || 'all';
 		isExpire();
 		if( !!cache.analysis[atype] && cache.analysis[atype].expire > moment().format('X') && this.query.debug !== 'true' ){
@@ -31,11 +32,12 @@ module.exports = function(router){
 		} else {
 			
 			let find = {
-				type:     0,
+				type:     type,
 				del_flag: 0
 			}
 			if( !!url ){
 				find.url = url;
+				find.url = new RegExp('.*' + url + '.*', 'gi');
 			}
 			let result  = yield mongo.model('Clog').find(find).exec();
 			// this.pg.db.client.query_(`SELECT * FROM analysis WHERE (date BETWEEN ${this.query.start} AND ${this.query.end}) AND type = 0 AND del_flag = '0'`);

@@ -11,7 +11,7 @@ const logger      = require('koa-logger');
 const app = koa();
 
 const G_port  = process.env.LPORT || 18080;
-const G_dburl = process.env.DBURL || 'mongodb://677346266c905ea767c02679b7cdf5d3:2d2c3e4c5a1f18d0d0fd889e9f3d4744@mongo.duapp.com:8908/rUJPFTguPXKJLMCCexyy';
+const G_dburl = process.env.DBURL || 'mongodb://blog:123456@127.0.0.1:27017/blog';
 
 // custom routing entries
 require('./routes').router(router);
