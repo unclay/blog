@@ -78,7 +78,9 @@ let TotalSchema = new Schema({
 // }
 module.exports = function(options){
     options = options || {};
-    mongoose.connect(options.url);
+    mongoose.connect(options.url, options.err || function(err){
+        if(!!err) console.error(err);
+    });
     mongoose.model('Clog',  ClogSchema);
     mongoose.model('User',  UserSchema);
     mongoose.model('Note',  NoteSchema);

@@ -33,7 +33,10 @@ module.exports = function(router){
 			
 			let find = {
 				type:     type,
-				del_flag: 0
+				del_flag: 0,
+				ua: {
+					$exists: true
+				}
 			}
 			if( !!url ){
 				find.url = url;
@@ -53,33 +56,53 @@ module.exports = function(router){
 				other:   function(u){ return true; }
 			}
 			const manufacturers = {
-				// pc:      /windows|Macintosh/ig, // pc
-				iPhone:  /iphone/ig,
-				iPod:    /ipod/ig,
-				iPad:    /ipad/ig,
-				SAMSUNG: /GT-|SM-|SCH-/ig,
-				MI:      /HM|RedMi|Mi/ig, // 小米
-				Huawei:  /huawei|honor/ig,
-				vivo:    /vivo/ig, 
-				Google:  /nexus/ig, 
-				Nokia:   /Nokia/ig,
-				oppo:    /oppo/ig, // 完全没有正则可以匹配到，超级不完整的数据
-				one:     /one/ig,  // 一加
-				asus:    /asus/ig, // 华硕
-				htc:     /htc/ig,  // 
-				lenovo:  /lenovo/ig,
-				meitu:   /meitu/ig, // 美图
-				zte:     /zte/ig,   // 中兴
-				other:   /.*/ig
+				'金立':       /F\d{3}/ig,      // 金立
+				'奇酷':       /8681-M02/ig,    // 奇酷
+				Letv:        /Letv|X600/ig,        // 乐视
+				MI:          /HM|RedMi|Mi|2014\d{3}/ig, // 小米
+				Huawei:      /huawei|honor|G7-TL00|H60-L\d{2}|Che1-CL20/ig,
+				Meizu:       /m[12]\snote|m1\smetal|MX\d|M\d{3}|MZ/ig, // 魅族
+				OPPO:        /oppo|[RX]\d{3}[a-zA-Z0-9]|N1T/ig, // 完全没有正则可以匹配到，超级不完整的数据
+				iPhone:      /iPhone/ig,
+				iPod:        /ipod/ig,
+				iPad:        /ipad/ig,
+				SAMSUNG:     /GT-|SM-|SCH-/ig,
+				Vivo:        /vivo/ig, 
+				Google:      /nexus/ig, 
+				Nokia:       /Nokia/ig,
+				One:         /one/ig,  // 一加
+				Asus:        /asus/ig, // 华硕
+				HTC:         /htc/ig,  // HTC
+				LG:          /LG/ig,   // LG
+				Sony:        /LT\d{2}|S39h|L36h/ig, // 索尼 
+				Lenovo:      /lenovo|IdeaTabA5000-E/ig,
+				Meitu:       /meitu/ig, // 美图
+				ZTE:         /zte/ig,   // 中兴
+				ChangHong:   /ChangHong/ig, // 长虹
+				CoolPad:     /Coolpad/ig,   // 酷派
+				'K-Touch':   /K-Touch/ig,   // 天语
+				TCL:         /TCL/ig,       // TCL
+				pc:          /AppleWebKit.*Mobile.*/ig, // 移动端，必须取反
+				Other:       /.*/ig
 			}
 			for(let item of result){
 				// pv
-				let dateYMD = moment(item.date).format('YYYY-MM-DD');
+				let dateYMD = moment(item.createtime).format('YYYY-MM-DD');
 				dataObj.pv[ dateYMD ] = dataObj.pv[ dateYMD ] || 0;
 				dataObj.pv[ dateYMD ]++;
 				// manufacturers
 				for(let mf in manufacturers){
-					if( new RegExp(manufacturers[mf]).test(item.ua) ){
+					let regResult = new RegExp(manufacturers[mf]).test(item.ua);
+					if( mf === 'pc' ){
+						if( !regResult ){
+							dataObj.manufacturers['pc'] = dataObj.manufacturers['pc'] || 0;
+							dataObj.manufacturers['pc']++;
+							break;
+						}
+					} else if( regResult ) {
+						if( mf === 'Other' ){
+							// console.log( item.ua );
+						}
 						dataObj.manufacturers[mf] = dataObj.manufacturers[mf] || 0;
 						dataObj.manufacturers[mf]++;
 						break;
@@ -88,7 +111,7 @@ module.exports = function(router){
 				// os
 				for(let i in os){
 					dataObj.os[i] = dataObj.os[i] || 0;
-					if( os[i](item.ua) ){
+					if( !!item.ua && os[i](item.ua) ){
 						dataObj.os[i]++;
 						break;
 					}
