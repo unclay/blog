@@ -1,0 +1,13 @@
+<div class="aside-tag fl">
+    <h3 class="aside-tag-title">标签</h3>
+    <div class="aside-tag-box">
+        <div class="aside-tag-list">
+            <% for(var i=0; i<tag.length; i++){ %>
+                <a href="/note/tag/<%=tag[i].name%>" class="item">
+                    <i class="fl iconfont">&#xe600;</i>
+                    <strong class="fl"><%=tag[i].name%></strong>
+                </a>
+            <%}%>
+        </div>
+    </div>
+</div>

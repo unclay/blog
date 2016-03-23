@@ -1,0 +1,33 @@
+<% function format(timestamp){ var t = new Date(timestamp*1000); return t.getFullYear() + '-' + (Number(t.getMonth())+1) + '-' + t.getDate() } %>
+<div class="wrap">
+    <div class="container cls">
+        <div class="note-wrap fl cls" id="JS_note">
+            <%include layout/note_tips_tag.html%>
+            <% for(var i=0; i<note.length; i++){ %>
+                <ul class="every-year">
+                    <li>
+                        <div class="subnav-year">
+                            <i class="iconfont">&#xe604;</i>
+                            <h3 class="tag"><%- note[i].year%>年</h3>
+                        </div>
+                        <ul class="every-item">
+                        <% for(var j=0; j<note[i].list.length; j++){ %>
+                            <li>
+                                <section>
+                                <% for(var k=0; k<note[i].list[j].length; k++){ %>
+                                    <a class="tag" href="/note/tag/<%=note[i].list[j][k].name%>"></a>
+                                <% } %>
+                                    <time><%= format(note[i].list[j].createtime)%></time>
+                                    <a class="title" href="/note/<%=note[i].list[j].seo_url%>"><%=note[i].list[j].title%></a>
+                                    <div class="content"><%=note[i].list[j].intro%></div>
+                                </section>
+                            </li>
+                        <% } %>
+                        </ul>
+                    </li>
+                </ul>
+            <% } %>
+        </div>
+        <%include layout/note_tag.html%>
+    </div>
+</div>

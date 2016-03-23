@@ -52,10 +52,10 @@ let DictSchema = new Schema({
     pid:        { type: Schema.Types.ObjectId, ref: 'Dict' },
     name:       { type: String, index: true },
     alias:              String,
-    type:       { type: String, index: true },
+    type:       { type: String, index: { unique: true } },
     desc:               String,
     serial:     { type: Number, default: 0 },
-    status:     { type: Number, default: 0 },
+    del_flag:   { type: Number, default: 0 },
     createtime: { type: Number, default: parseInt(new Date().getTime()/1000, 10) },
     updatetime: { type: Number, default: parseInt(new Date().getTime()/1000, 10) }
 });

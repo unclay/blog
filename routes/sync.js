@@ -5,7 +5,7 @@ var qs = require('querystring');
 var rest = require('restler');
 
 module.exports = function(router){
-	// 同步服务器数据进本地
+	// 同步服务器数据进本地v
 	router.post('/ace/note', function *(next){
 		var note = yield new Promise(function(resolve, reject){
 			rest.get('http://api.unclay.com/api/v1/note', {

@@ -1,0 +1,96 @@
+<div class="wrap-header">
+    <div class="pdleft12">
+        <i class="iconclary">&#xe611;</i><a href="/admin/index.wcl">首页</a><span class="nav-step">&gt;</span><span>文章管理</span>
+    </div>
+</div>
+<div class="wrap-search">
+    <form action="///sd/ds/ds/" method="post">
+        <div class="form-box cls">
+            <label class="search-title" for="search-sort">选择分类:</label>
+            <select class="fl search-sort" name="search-sort">
+                <option value="">全部</option>
+                <option value="19">test1</option>
+                <option value="20">test2</option>
+            </select>
+            <label class="search-title search-title2" for="keyword">关键字:</label>
+            <input class="fl common-text" type="text" name="keyword" placeholder="关键字">
+            <input class="search-submit btn" type="submit" name="submit">
+        </div>
+    </form>
+</div>
+<div class="wrap-main">
+    <div class="function-btn cls">
+        <a href="/admin/note/insert.wcl"><i class="iconclary">&#xe614;</i>新增文章</a>
+        <a href=""><i class="iconclary">&#xe605;</i>批量删除</a>
+        <a href=""><i class="iconclary">&#xe608;</i>更新顺序</a>
+    </div>
+    <div class="list-from">
+        <form action="{{artical}}" method="post" id="JS_form">
+            <table class="list-box" width="100%">
+                <thead>
+                    <tr>
+                        <th width="3%">
+                            <input type="checkbox" name="allcheckbox">
+                        </th>
+                        <th width="4%">排序</th>
+                        <th width="4%">ID跳链</th>
+                        <th width="12%">访问地址</th>
+                        <th width="20%">标题</th>
+                        <th width="23%">简介</th>
+                        <th width="5%">点击数</th>
+                        <th width="5%">发布人</th>
+                        <th width="12%">更新时间</th>
+                        <th width="8%">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="JS_tbody">
+                </tbody>
+                <script type="seedit/template" id="JS_tbody_tpl">
+                    {{#each this}}
+                    <tr>
+                        <td class="input-ck textc">
+                            <input type="checkbox" name="allcheckbox">
+                        </td>
+                        <td>
+                            <input class="sort-input" type="text" name="serial" value="{{serial}}">
+                        </td>
+                        <td>
+                            <a href="/note/{{seo_url}}/" target="_blank">
+                                <input class="item-id" type="text" name="_id" value="{{_id}}" disabled="disabled" />
+                            </a>
+                        </td>
+                        <td>
+                            <input type="text" name="seo_url" value="{{seo_url}}" />
+                        </td>
+                        <td>
+                            <input type="text" name="title" value="{{title}}" />
+                        </td>
+                        <td>
+                            <input type="text" name="intro" value="{{intro}}" />
+                        </td>
+                        <td>{{clicknum}}</td>
+                        <td>
+                            {{getFirstByArray user 'showname'}}
+                        </td>
+                        <td>{{format updatetime 'yyyy-MM-dd'}}</td>
+                        <td><a href="/admin/note/update.wcl/?id={{_id}}">修改</a>
+                            <input data-type="update" type="submit" value="更新" class="update-btn" />
+                            <input data-type="delete" type="submit" value="删除" class="del-btn" />
+                        </td>
+                    </tr>
+                    {{/each}}
+                </script>
+            </table>
+            <div class="list-page"> 2 条 1/1 页</div>
+            <input type="hidden" name="params" id="JS_params" />
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+seajs.use("<%= SOURCE%>/admin/js/admin.js", function(admin) {
+    window.onload = function() {
+        admin.note();
+    }
+});
+</script>
