@@ -13,6 +13,7 @@
   "author": "wangchenglin",
   "license": "MIT",
   "dependencies": {
+    "co": "^4.6.0",
     "co-body": "^4.0.0",
     "co-fs": "^1.2.0",
     "koa": "^1.2.0",
@@ -26,6 +27,7 @@
     "marked": "^0.3.5",
     "moment": "^2.11.2",
     "mongoose": "^4.4.6",
-    "restler": "^3.4.0"
+    "restler": "^3.4.0",
+    "thunkify": "^2.1.2"
   }
 }

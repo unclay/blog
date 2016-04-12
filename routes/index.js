@@ -5,6 +5,7 @@ module.exports = {
 		// require('./api')(router);
 		require('./sync')(router);
 		require('./page')(router);
+		require('./init')();
 		// require('./admin')(router);
 
 	}

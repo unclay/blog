@@ -1,6 +1,7 @@
 'use strict';
 var marked = require('marked');
 var mongoose = require('mongoose');
+var total = require('./total');
 
 module.exports = function(router){
 	
@@ -15,12 +16,7 @@ module.exports = function(router){
 	});
 
 	router.get('/note', function *(next){
-		let tag    = yield mongoose.model('Dict').find({
-			type: 'tag',
-			del_flag: {
-				$ne: 1
-			}
-		}).select('name');
+		let tag    = total.get();
 		let note   = yield mongoose.model('Note').find().sort({
 			createtime: 'desc'
 		}).limit(10);
@@ -49,9 +45,7 @@ module.exports = function(router){
 	});
 
 	router.get('/note/tag/:tag', function *(next){
-		let tag    = yield mongoose.model('Dict').find({
-			type: 'tag'
-		}).select('name');
+		let tag    = total.get();
 		let tagid  = yield mongoose.model('Dict').findOne({
 			type: 'tag',
 			name: this.params.tag
@@ -68,17 +62,25 @@ module.exports = function(router){
 			result[year] = result[year] || [];
 			result[year].push( item );
 		}
+		note = [];
+		for(let i in result){
+			note.push({
+				year: i,
+				list: result[i]
+			});
+		}
+		note = note.sort(function(a, b){
+			return a.year < b.year
+		});
 		yield this.render('note', {
-			note: result,
+			note: note,
 			tag:     tag,
 			tagname: this.params.tag
 		});
 	});
 
 	router.get('/note/:note', function *(next){
-		let tag    = yield mongoose.model('Dict').find({
-			type: 'tag'
-		}).select('name');
+		let tag    = total.get();
 		var note   = yield mongoose.model('Note').findOne({
 				seo_url: this.params.note
 			}).populate('tag', '-_id name');

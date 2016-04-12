@@ -4,12 +4,17 @@ const mongoose = require('mongoose');
 const note = {
 	GET: function *(){
 		let limit = this.query.limit || 10;
-		let note = yield mongoose.model('Note').find().limit(limit).exec();
+		let page  = this.query.page  || 1;
+		let note = yield mongoose.model('Note').find().skip( (page-1)*limit ).limit(limit).sort({
+			createtime: -1
+		}).exec();
 		this.body = {
 			code: 0,
 			data: {
 				count: note.length,
-				list: note
+				page:  page,
+				limit: limit,
+				list:  note
 			}
 		};
 	},

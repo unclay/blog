@@ -40,6 +40,7 @@ let NoteSchema = new Schema({
     seo_description:         String,
     seo_url:         { type: String, index: true },
     status:          { type: Number, default: 0 },
+    del_flag:        { type: Number, default: 0 }, // 是否删除
     views:                   Number,
     user:           [{ type: Schema.Types.ObjectId, ref: 'User' }],
     serial:          { type: Number, default: 0 },
@@ -62,7 +63,7 @@ let DictSchema = new Schema({
 
 let TotalSchema = new Schema({
     type:          String,
-    tagid: { type: Schema.Types.ObjectId, ref: 'Dict' },
+    fid:  { type: Schema.Types.ObjectId, ref: 'Dict' }, // 外键
     name:          String,
     count:         Number,
     note: [{ type: Schema.Types.ObjectId, ref: 'Note'

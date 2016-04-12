@@ -20,10 +20,9 @@ const G_dburl = process.env.DBURL || 'mongodb://blog:123456@127.0.0.1:27017/blog
 var distribute = require('./admin');
 app.use(mount('/admin', distribute.admin ));
 app.use(mount('/api',   distribute.api ));
-// custom routing entries
-require('./routes').router(router);
 
-app.use(logger());
+
+// app.use(logger());
 app.keys = ['blog'];
 app.use(session(app));
 ejs(app, {
@@ -47,7 +46,8 @@ console.log( G_dburl );
 require('./routes/database')({
 	url: G_dburl
 });
-
+// custom routing entries
+require('./routes').router(router);
 app.use(router.routes());
 
 app.use(staticCache(path.join(`${__dirname}/public`), {

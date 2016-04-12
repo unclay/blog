@@ -5,7 +5,7 @@
             <% for(var i=0; i<tag.length; i++){ %>
                 <a href="/note/tag/<%=tag[i].name%>" class="item">
                     <i class="fl iconfont">&#xe600;</i>
-                    <strong class="fl"><%=tag[i].name%></strong>
+                    <strong class="fl"><%=tag[i].name%>(<%=tag[i].count%>)</strong>
                 </a>
             <%}%>
         </div>
