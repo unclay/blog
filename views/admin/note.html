@@ -9,8 +9,6 @@
             <label class="search-title" for="search-sort">选择分类:</label>
             <select class="fl search-sort" name="search-sort">
                 <option value="">全部</option>
-                <option value="19">test1</option>
-                <option value="20">test2</option>
             </select>
             <label class="search-title search-title2" for="keyword">关键字:</label>
             <input class="fl common-text" type="text" name="keyword" placeholder="关键字">
@@ -81,7 +79,7 @@
                     {{/each}}
                 </script>
             </table>
-            <div class="list-page"> 2 条 1/1 页</div>
+            <div class="list-page" id="JS_pagerview"> 2 条 1/1 页</div>
             <input type="hidden" name="params" id="JS_params" />
         </form>
     </div>

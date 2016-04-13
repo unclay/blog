@@ -1,19 +1,35 @@
 'use strict';
 const mongoose = require('mongoose');
 
+
+
 const note = {
 	GET: function *(){
+/*
+
+ */
 		let limit = this.query.limit || 10;
 		let page  = this.query.page  || 1;
-		let note = yield mongoose.model('Note').find().skip( (page-1)*limit ).limit(limit).sort({
+		page = page <= 0 ? 1 : page;
+		let tag = this.query.tag;
+		let query = {};
+		if( !!tag ){
+			let tagid = yield mongoose.model('Dict').findOne({
+				name: tag,
+				type: 'tag'
+			}).exec();
+			!!tagid && ( query.tag = tagid._id );
+		}
+		let noteCount = yield mongoose.model('Note').find(query).count().exec();
+		let note = yield mongoose.model('Note').find(query).skip( (page-1)*limit ).limit(limit).sort({
 			createtime: -1
 		}).exec();
 		this.body = {
 			code: 0,
 			data: {
-				count: note.length,
-				page:  page,
-				limit: limit,
+				count: noteCount - 0,
+				page:  page - 0,
+				limit: limit - 0,
 				list:  note
 			}
 		};

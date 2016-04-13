@@ -60,6 +60,12 @@ let DictSchema = new Schema({
     createtime: { type: Number, default: parseInt(new Date().getTime()/1000, 10) },
     updatetime: { type: Number, default: parseInt(new Date().getTime()/1000, 10) }
 });
+// DictSchema.statics.getIdByName = function(type, name, cb){
+//     return this.model('Dict').findOne({
+//         name: name,
+//         type: type
+//     }, cb);
+// }
 
 let TotalSchema = new Schema({
     type:          String,
