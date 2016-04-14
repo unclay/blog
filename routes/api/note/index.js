@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
-
-
+const co       = require('co');
+const tagTotal = require('../../total'); 
 
 const note = {
 	GET: function *(){
@@ -50,6 +50,7 @@ const note = {
 		let note = yield mongoose.model('Note').update({
 			seo_url: url
 		}, body).exec();
+		tagTotal.init();
 		this.body = {
 			code: 0,
 			data: note
