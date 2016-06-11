@@ -15,6 +15,11 @@ module.exports = function(router){
 		yield this.render('course');
 	});
 
+	// 关于我
+	router.get('/about', function *(next){
+		yield this.render('about');
+	});
+
 	router.get('/note', function *(next){
 		let tag    = total.get();
 		let note   = yield mongoose.model('Note').find().sort({
