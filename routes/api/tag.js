@@ -3,6 +3,15 @@ const mongoose = require('mongoose');
 
 const API = {
 	GET: function *(){
+/*
+# （标签列表）
+## GET接口
+### 接口描述
+	获取所有标签的信息
+### 参数
+	null
+### 正确返回
+ */
 		let tag = yield mongoose.model('Dict').find({
 			type: 'tag',
 			del_flag: {

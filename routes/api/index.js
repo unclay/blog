@@ -33,10 +33,14 @@ module.exports = function(router){
 	const login = require('./login');
 	const member = require('./member');
 	const tag = require('./tag');
-
+	const doc = require('./doc');
+	console.log(doc)
+	distribute('/doc',    doc);
+	distribute('/*.doc',  doc.ITEM);
 	distribute('/login',    login);
 	distribute('/note',     note);
 	distribute('/note/:id', note.ITEM);
 	distribute('/member',   member);
 	distribute('/tag',      tag);
+	
 }

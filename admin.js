@@ -21,6 +21,7 @@ const body        = require('co-body');
 	});
 	require('./routes/api')(apiRouter);
 	api.keys = ['blog'];
+	api.use(require('./config/domain')());
 	api.use(session(api));
 	api.use(apiRouter.routes());
 	api.use(logger());
