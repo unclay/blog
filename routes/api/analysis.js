@@ -17,7 +17,7 @@ module.exports = function(router){
 			}
 		}
 	}
-	router.get('/api/analysis', function *(next){
+	router.get('/analysis', function *(next){
 		let start   = this.query.start;
 		let end     = this.query.end;
 		let url     = this.query.url;
