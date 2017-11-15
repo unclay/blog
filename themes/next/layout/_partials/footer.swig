@@ -20,3 +20,7 @@
   </a>
 </div>
 {% endif %}
+
+<div>
+  <a href='http://www.miibeian.gov.cn' target='_blank'>粤ICP备15064156号-1</a>
+</div>

@@ -1,8 +1,8 @@
 ---
 title: 介绍
-date: 2017-07-25 16:06:32
+date: 2017-04-01
 tags:
- - tutotial
+ - intro
 ---
 本站基于Hexo，写文章前需要先安装Hexo。（文档格式是Markdown）
 <!--more-->

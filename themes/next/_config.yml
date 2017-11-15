@@ -104,6 +104,8 @@ social_icons:
   GitHub: github
   Twitter: twitter
   Weibo: weibo
+social:
+  GitHub: https://github.com/unclay/
 
 # Blog rolls
 #links_title: Links
