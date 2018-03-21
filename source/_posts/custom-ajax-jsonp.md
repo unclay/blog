@@ -3,6 +3,8 @@ title: 搭建一个无依赖性的ajax-jsonp
 date: 2017.04.10
 tags:
  - javascript
+categories:
+ - 前端
 ---
 
 公司部分内部组件、模块需要调用接口restful_api，但由于某些原因可能不想为了使用ajax而去引用类似jquery之类的插件。于是打算写个适合自己，方便自己去调用接口；这里只提供方法，需要的可自行调整成适合自己的。

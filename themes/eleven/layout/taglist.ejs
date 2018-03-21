@@ -1,0 +1,18 @@
+<section class="archive">
+  <% site.tags.map(function (tag) { %>
+    <!-- <% for (var key in tag) {%>
+      <%- key%>: <%-tag[key]%><br/>
+    <%}%> -->
+    <a href="<%-'/' + tag.path%>">
+      <h3 class="title-archive"><%-tag.name%></h3>
+    </a>
+    <ul>
+      <% tag.posts.each(function (post) {%>
+        <li class="post-item">
+          <span class="post-date"><%= date(post.date, "YYYY/MM/DD") %></span>&nbsp;
+          <a class="post-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+        </li>
+      <%})%>
+    </ul>
+  <% }) %>
+</section>

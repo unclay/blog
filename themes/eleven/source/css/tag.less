@@ -1,0 +1,28 @@
+.tag {
+  .tag-item {
+    display: inline-block;
+    padding-right: 5px;
+    /*&:after {
+      content: ', ';
+    }
+    &:last-child:after {
+      content: '';
+    }*/
+  }
+
+  .tag-link {
+    font-size: 18px;
+    color: @mainLinkColor;
+  }
+
+  .tag-count {
+    padding: 0 5px;
+    font-size: 12px;
+    &:before {
+      content: '(';
+    }
+    &:after {
+      content: ')';
+    }
+  }
+}

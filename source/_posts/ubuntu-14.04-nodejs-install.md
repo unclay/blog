@@ -4,6 +4,8 @@ date: 2017.05.10
 tags:
  - ubuntu
  - nodejs
+categories:
+ - 后端
 ---
 最近公司服务器因为某些原因，导致服务器环境需要全部重新部署，安装nodejs又忘了，记录下，方便下次使用。
 <!--more-->

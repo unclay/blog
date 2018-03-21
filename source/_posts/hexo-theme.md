@@ -4,7 +4,7 @@ date: 2018-03-18
 tags:
  - hexo
 categories:
- - lab
+ - 实验室
 ---
 
 个人比较喜欢简约版的风格，
