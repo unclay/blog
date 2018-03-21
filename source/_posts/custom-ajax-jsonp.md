@@ -4,9 +4,8 @@ date: 2017.04.10
 tags:
  - javascript
 ---
-## 背景
-公司部分内部组件、模块需要调用接口restful_api，但由于某些原因可能不想为了使用ajax而去引用类似jquery之类的插件  
-于是打算写个适合自己，方便自己去调用接口；这里只提供方法，需要的可自行调整成适合自己的
+
+公司部分内部组件、模块需要调用接口restful_api，但由于某些原因可能不想为了使用ajax而去引用类似jquery之类的插件。于是打算写个适合自己，方便自己去调用接口；这里只提供方法，需要的可自行调整成适合自己的。
 <!--more-->
 
 
@@ -16,7 +15,7 @@ tags:
 > jsonp在服务器端返回的数据通过callback.error_code字段判断正常与否  
 > 基本说明已在代码里，不做额外说明
 
-```
+```js
 /*
  * Get data from interface by jsonp method
  * @param url {string} 
@@ -64,7 +63,7 @@ function getJsonp(url, query, cb_success, cb_fail, cb_error){
 
 > 假设先跟服务器端约定自定义回调函数参数名为__c，可修改为：
 
-```
+```js
 function getJsonp(url, query, cb_success, cb_fail, cb_error){
   var _query = '';
   var script = doc.createElement('script');
@@ -103,7 +102,7 @@ function getJsonp(url, query, cb_success, cb_fail, cb_error){
 通过以上方式即可动态生成回调函数，而且多个接口直接不回互相影响  
 （极端情况下，可能两个接口请求时间一样）
 
-```
+```js
 // 极端方法
 var callbackName = 'callback_' + timestamp;  // 换成
 var callbackName = pathName + '_' + timestamp; // 把api路径转为回调函数名
@@ -111,7 +110,7 @@ var callbackName = pathName + '_' + timestamp; // 把api路径转为回调函数
 
 其中pathName如：
 
-```
+```js
 // url
 http://127.0.0.1/api/divio/user.jsonp
 // pathName可设为
@@ -121,7 +120,7 @@ api_divio_user_timestamp
 其他方式自行脑补吧～
 
 ## 使用方法
-```
+```js
 getJsonp('/api/user.jsonp', {
   page: 1,
   limit: 10
