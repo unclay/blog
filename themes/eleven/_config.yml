@@ -7,3 +7,8 @@ menu:
   Archives: /archives/
   Tags: /tags/
   Github: https://github.com/unclay
+
+# Power by, Theme by, ICP Licensing
+copyright: true
+# ICP备案，前提需要开启copyright
+ICP: 粤ICP备15064156号-1

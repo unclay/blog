@@ -1,6 +1,13 @@
-<div class="footer">
-  Copyright © <%=theme.since%><% if (theme.since < new Date().getFullYear()) { %>
-    <%= ' - ' + new Date().getFullYear()%>
-  <% } %> <%=config.author%> | 
-  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme by <a href="https://github.com/unclay/hexo-theme-eleven">Eleven</a>.
-</div>
+<% if (theme.copyright) {%>
+  <div class="footer">
+    <span class="footer-item">Copyright © <%=theme.since%><% if (theme.since < new Date().getFullYear()) { %>
+      <%= ' - ' + new Date().getFullYear()%>
+    <% } %> <%=config.author%></span>
+    <span class="footer-divider"> | </span>
+    <span class="footer-item">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme by <a href="https://github.com/unclay/hexo-theme-eleven">Eleven</a></span>
+    <% if (theme.ICP) {%>
+      <span class="footer-divider"> | </span>
+      <span class="footer-item"><a class="no-color" href='http://www.miibeian.gov.cn' target='_blank'><%=theme.ICP%></a></span>
+    <%}%>
+  </div>
+<%}%>
