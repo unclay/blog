@@ -8,4 +8,10 @@
   <div class="post-content markdown-body">
     <%- page.content %>
   </div>
+  <div class="post-tag">
+    <span>标签：</span>
+    <% page.tags.each(function (tag) { %>
+      <a class="post-tag--link" href="<%= url_for(tag.path) %>">#<%= tag.name %></a>
+    <% }) %>
+  </div>  
 </article>

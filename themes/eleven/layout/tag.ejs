@@ -10,15 +10,15 @@
     }) %>
   </div>
   
-  <a href="<%-'/' + page.base%>">
+  <a href="<%- url_for(page.base)%>">
     <h3 class="title-archive"><%-page.tag%></h3>
   </a>
-  <% page.posts.each(function (post) { %>
-    <ul class="archive-list">
+  <ul class="archive-list">
+    <% page.posts.each(function (post) { %>
       <li class="post-item">
         <span class="post-date"><%= date(post.date, "YYYY/MM/DD") %></span>&nbsp;
         <a class="post-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
       </li>
-    </ul>
-  <% }) %>
+    <% }) %>
+  </ul>
 </section>

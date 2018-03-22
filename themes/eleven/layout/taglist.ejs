@@ -3,7 +3,7 @@
     <!-- <% for (var key in tag) {%>
       <%- key%>: <%-tag[key]%><br/>
     <%}%> -->
-    <a href="<%-'/' + tag.path%>">
+    <a href="<%- url_for(tag.path)%>">
       <h3 class="title-archive"><%-tag.name%></h3>
     </a>
     <ul>
