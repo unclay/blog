@@ -1,9 +1,20 @@
+---
+title: 探究 typeof null === object？
+date: 2018.09.03
+tags:
+ - javascript
+categories:
+ - 前端
+---
+
+`typeof null` 理论上是 `null`，为什么会是 `object` 呢？
+<!--more-->
 
 # Typeof
 
 ## typeof null === object?
 
-[引用](https://yuchengkai.cn/docs/zh/frontend/#typeof)：为什么会出现这种情况呢？因为在 JS 的最初版本中，使用的是 32 位系统，为了性能考虑使用低位存储了变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零，所以将它错误的判断为 `object` 。虽然现在的内部类型判断代码已经改变了，但是对于这个 Bug 却是一直流传下来。
+> [引用](https://yuchengkai.cn/docs/zh/frontend/#typeof)：为什么会出现这种情况呢？因为在 JS 的最初版本中，使用的是 32 位系统，为了性能考虑使用低位存储了变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零，所以将它错误的判断为 `object` 。虽然现在的内部类型判断代码已经改变了，但是对于这个 Bug 却是一直流传下来。
 
 查了下资料，在初版javascript中，值以32位为单位存储，由标记位（1-3位）和值来组成实际数据。
 
@@ -32,11 +43,11 @@
 
 转成16进制可得：
 
-+ 000: 对象（`object`）
-+ 1: 31位整数值（`number`）
-+ 010: 浮点值（`double`）
-+ 100: 字符串（`string`）
-+ 110: 布尔值（`boolean`）
++ `0x0` -> `000`: 对象（`object`）
++ `0x1` -> `1`:   31位整数值（`number`）
++ `0x2` -> `010`: 浮点值（`double`）
++ `0x4` -> `100`: 字符串（`string`）
++ `0x6` -> `110`: 布尔值（`boolean`）
 
 有两个特殊值：
 + `undefined`: 用 - (-2 ^ 30)表示
