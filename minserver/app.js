@@ -15,6 +15,15 @@ app.get('/dict.json', (req, res) => {
   res.send(fs.readFileSync(path.resolve(__dirname, '../dict.json'), 'utf-8'));
 });
 
+app.get('/backup', (req, res) => {
+  const text = fs.readFileSync(path.resolve(__dirname, '../dict.json'), 'utf-8');
+  fs.writeFileSync(path.resolve(__dirname, `../dict-${new Date().getTime()}.json`), text, 'utf-8');
+  res.send({
+    code: 0,
+    data: 'ok',
+  });
+});
+
 app.post('/', (req, res) => {
   try {
     fs.writeFileSync(path.resolve(__dirname, '../dict.json'), req.body.json, 'utf-8');
@@ -28,7 +37,6 @@ app.post('/', (req, res) => {
       error: err,
     });
   }
-  
 });
 
 app.listen(2019);
