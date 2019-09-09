@@ -194,15 +194,3 @@ categories:
   </body>
 </html>
 ```
-
-## 后语
-
-这里不会讲所有标签，该怎么用，什么时候用，你可以去极客上面买 winter 的《重学前端》的第4章节 “04 | HTML语义：如何运用语义类标签来呈现Wiki网页？” 去看。
-
-通过我的分享图去买可以有优惠，你买完我能分到佣金，这个佣金我会转回你，相当于我没赚，权当交个朋友。
-这里不方便留微信号，可以通过邮箱联系我发你（wcl58981298@gmail.com）。
-
-
-<div style="width: 400px;">
-  {% asset_img re_learning_front.jpg re_learning_front %}
-</div>
